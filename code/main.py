@@ -1,5 +1,7 @@
 import urllib.request
 import json
+import datetime
+import geocoder
 
 access_token = '' # get your own access token for GitHub API
 
@@ -41,11 +43,24 @@ def get_locations_of_fans(stargazers):
 
     return data
 
+def write_in_js_file(location_data):
+    year = str(datetime.datetime.now().year)
+    month = str(datetime.datetime.now().month)
+    day = str(datetime.datetime.now().day)
+
+    with open("data/stargazers.js", "w") as js_file:
+        js_file.write("var data = { users:")
+        js_file.write(str(location_data["users"]))
+        js_file.write(", created_at: new Date(%s, %s, %s) };" % (year, month, day))
+
+    js_file.close()
+
 if __name__ == "__main__":
     import sys
     
     username = str(sys.argv[1])  
     stargazers = follower_list(username)
     location_data = get_locations_of_fans(stargazers)
+    write_in_js_file(location_data)
 
     print ("completed.")
