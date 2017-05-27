@@ -48,7 +48,7 @@ def write_in_js_file(location_data):
     month = str(datetime.datetime.now().month)
     day = str(datetime.datetime.now().day)
 
-    with open("data/stargazers.js", "w") as js_file:
+    with open("js/stargazers.js", "w") as js_file:
         js_file.write("var data = { users:")
         js_file.write(str(location_data["users"]))
         js_file.write(", created_at: new Date(%s, %s, %s) };" % (year, month, day))
