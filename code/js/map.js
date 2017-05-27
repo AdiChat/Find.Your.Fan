@@ -1,0 +1,2 @@
+var countries = {};
+var UniqueUsers = {};
