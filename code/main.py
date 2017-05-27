@@ -6,17 +6,20 @@ import geocoder
 access_token = '' # get your own access token for GitHub API
 
 def follower_list(username):
-    url = "https://api.github.com/users/{}/followers?access_token={}".format(username, access_token)
-    r = urllib.request.urlopen(url).read()
-    result = json.loads(r)
-    print (len(result))
-    followers = len(result)
-    count = 0
+    page = 1
     stargazers = []
-    
-    while count<followers:
-        stargazers.append(result[count]["login"])
-        count += 1
+    while True:
+        url = "https://api.github.com/users/{}/followers?page={}&per_page=100&access_token={}".format(username, page, access_token)
+        r = urllib.request.urlopen(url).read()
+        result = json.loads(r)
+        followers = len(result)
+        if followers==0:
+            break
+        page += 1
+        count = 0    
+        while count<followers:
+            stargazers.append(result[count]["login"])
+            count += 1
     return stargazers
 
 def get_user_data(username):
