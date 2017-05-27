@@ -17,6 +17,12 @@ def follower_list(username):
         count += 1
     return stargazers
 
+def get_user_profile(username):
+    url_ = "https://api.github.com/users/{}?access_token={}".format(username, access_token)
+    r = urllib.request.urlopen(url_).read()
+    result = json.loads(r)
+    return result['location'], result['id']
+
 if __name__ == "__main__":
     import sys
     
