@@ -58,11 +58,17 @@ def write_in_js_file(location_data):
 
     js_file.close()
 
+def store_follower_list(stargazers, location):
+    with open(location, 'w') as outfile:
+        json.dump(stargazers, outfile, indent=4)
+    outfile.close()
+
 if __name__ == "__main__":
     import sys
     
     username = str(sys.argv[1])  
     stargazers = follower_list(username)
+    store_follower_list(stargazers, 'data/stargazers.json')
     location_data = get_locations_of_fans(stargazers)
     write_in_js_file(location_data)
 
