@@ -46,12 +46,12 @@ def get_locations_of_fans(fans):
 
     return data
 
-def write_in_js_file(location_data):
+def write_in_js_file(location_data, location):
     year = str(datetime.datetime.now().year)
     month = str(datetime.datetime.now().month)
     day = str(datetime.datetime.now().day)
 
-    with open("js/fans.js", "w") as js_file:
+    with open(location, "w") as js_file:
         js_file.write("var data = { users:")
         js_file.write(str(location_data["users"]))
         js_file.write(", created_at: new Date(%s, %s, %s) };" % (year, month, day))
@@ -70,6 +70,6 @@ if __name__ == "__main__":
     fans = follower_list(username)
     store_follower_list(fans, 'data/fans.json')
     location_data = get_locations_of_fans(fans)
-    write_in_js_file(location_data)
+    write_in_js_file(location_data, 'js/fans.js')
 
     print ("completed.")
