@@ -38,9 +38,28 @@ def org_follower_list(username):
         while count<followers:
             fan.append(result[count]["login"])
             count += 1
-    print ("--------------------------------")
     print (len(fan))
     return fan
+
+def fork_list(username, reponame):
+    page = 1
+    fan = []
+    while True:
+        url = "https://api.github.com/repos/{}/{}/forks?page={}&per_page=100&access_token={}".format(username, reponame, page, access_token)
+        r = urllib.request.urlopen(url).read()
+        result = json.loads(r)
+        followers = len(result)
+        if followers==0:
+            break
+        page += 1
+        count = 0       
+        
+        while count<followers:
+            fan.append(result[count]["owner"]["login"])
+            count += 1
+    print (len(fan))
+    return fan
+
 
 def get_user_data(username):
     url_ = "https://api.github.com/users/{}?access_token={}".format(username, access_token)
@@ -88,14 +107,20 @@ if __name__ == "__main__":
     
     username = str(sys.argv[1]) 
     user_type = 0
+    repo_name = ""
     print (len(sys.argv))
-    if len(sys.argv) > 2:
+    if len(sys.argv) == 3:
+        repo_name = str(sys.argv[2])
+        user_type = str(sys.argv[3])
+    elif len(sys.argv) == 2:
         user_type = str(sys.argv[2])
     fans = []
     if user_type == 0:
         fans = follower_list(username)
+    elif user_type == 1:
+        fans = org_follower_list(username)
     else:
-        fans = org_follower_list(username) 
+        fans = fork_list(username, repo_name) 
     store_follower_list(fans, 'data/fans.json')
     location_data = get_locations_of_fans(fans)
     write_in_js_file(location_data, 'js/fans.js')
