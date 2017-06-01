@@ -22,6 +22,26 @@ def follower_list(username):
             count += 1
     return fans
 
+def org_follower_list(username):
+    page = 1
+    fan = []
+    while True:
+        url = "https://api.github.com/orgs/{}/members?page={}&per_page=100&access_token={}".format(username, page, access_token)
+        r = urllib.request.urlopen(url).read()
+        result = json.loads(r)
+        followers = len(result)
+        if followers==0:
+            break
+        page += 1
+        count = 0       
+        
+        while count<followers:
+            fan.append(result[count]["login"])
+            count += 1
+    print ("--------------------------------")
+    print (len(fan))
+    return fan
+
 def get_user_data(username):
     url_ = "https://api.github.com/users/{}?access_token={}".format(username, access_token)
     r = urllib.request.urlopen(url_).read()
@@ -66,8 +86,16 @@ def store_follower_list(fans, location):
 if __name__ == "__main__":
     import sys
     
-    username = str(sys.argv[1])  
-    fans = follower_list(username)
+    username = str(sys.argv[1]) 
+    user_type = 0
+    print (len(sys.argv))
+    if len(sys.argv) > 2:
+        user_type = str(sys.argv[2])
+    fans = []
+    if user_type == 0:
+        fans = follower_list(username)
+    else:
+        fans = org_follower_list(username) 
     store_follower_list(fans, 'data/fans.json')
     location_data = get_locations_of_fans(fans)
     write_in_js_file(location_data, 'js/fans.js')
