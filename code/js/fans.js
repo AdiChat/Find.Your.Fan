@@ -1,0 +1,1 @@
+var data = { users:[], created_at: new Date(2017, 6, 1) };

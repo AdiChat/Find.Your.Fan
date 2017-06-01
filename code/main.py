@@ -128,11 +128,11 @@ if __name__ == "__main__":
     user_type = 0
     repo_name = ""
     print (len(sys.argv))
-    if len(sys.argv) == 3:
+    if len(sys.argv) == 4:
         repo_name = str(sys.argv[2])
-        user_type = str(sys.argv[3])
-    elif len(sys.argv) == 2:
-        user_type = str(sys.argv[2])
+        user_type = int(sys.argv[3])
+    elif len(sys.argv) == 3:
+        user_type = int(sys.argv[2])
     fans = []
     if user_type == 0:
         fans = follower_list(username)
