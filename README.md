@@ -1,4 +1,19 @@
-# Where does your fans live?
+### Where do your fans live? Did you take a group image :camera_flash: ?
+
+> At the end of the day it's the fans who make you who you are.
+
+This work provides two key features:
+* Create a collage of all members at an organization
+* Create a World map of location of:
+   * your followers
+   * members of an organization
+   * People who have forked a repository
+   * People who have starred a repository
+
+Following is the joint image of all members at [DuckDuckGo](https://github.com/duckduckgo):
+
+![alt text](https://github.com/AdiChat/Find.Your.Fan/blob/master/data/images/duckduckgo.jpg "@DuckDuckGo")
+
 
 Here is the map of my followers:
 
@@ -20,9 +35,13 @@ Add your `access token` for GitHub API in `main.py` and drive into the terminal 
  > python main.py adichat repository-hunter 2 # For forks of a repository
 
  > python main.py adichat repository-hunter 3 # For stars of a repository
+
+ > python team.py duckduckgo # To create team image of members of DuckDuckGo
 ```
 
 Open map.html in a browser and enjoy! 🎉 
+
+See the group image of [Google](https://github.com/google) [here](https://github.com/AdiChat/Find.Your.Fan/blob/master/data/images/google.jpg)
 
 ## Want to add/ look at the map of an organization/ human?
 
@@ -41,4 +60,5 @@ Here is the map of [DuckDuckGo](https://github.com/duckduckgo):
 ### All contributions are welcomed. 🍰 
 
 If you enjoyed, consider giving this repository a :star2:
+
 
